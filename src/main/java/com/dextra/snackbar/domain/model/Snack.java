@@ -3,7 +3,6 @@ package com.dextra.snackbar.domain.model;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Snack {
 
     private String name;

@@ -1,10 +1,22 @@
-package com.dextra.snackbar.domain.model;
+package com.dextra.snackbar.domain.model.discount;
 
+import com.dextra.snackbar.domain.model.Ingredient;
+import com.dextra.snackbar.domain.model.Snack;
+import com.dextra.snackbar.domain.model.discount.LightSaleDiscountCalculator;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class LightSaleDiscountCalculatorTest {
+
+    private LightSaleDiscountCalculator lightSaleDiscountCalculator;
+
+    @Before
+    public void init() {
+         lightSaleDiscountCalculator =
+            new LightSaleDiscountCalculator();
+    }
 
     @Test
     public void checkEligibleSnack() {
@@ -18,12 +30,9 @@ public class LightSaleDiscountCalculatorTest {
         snack.addIngredient(egg);
         snack.addIngredient(meat);
 
-        LightSaleDiscountCalculator lightSaleDiscountCalculator =
-                new LightSaleDiscountCalculator(snack);
-
         // When
-        boolean eligible = lightSaleDiscountCalculator.isEligible();
-        double discount = lightSaleDiscountCalculator.calculate();
+        boolean eligible = lightSaleDiscountCalculator.isEligible(snack);
+        double discount = lightSaleDiscountCalculator.calculate(snack);
 
         // Then
         assertTrue(eligible);
@@ -40,11 +49,9 @@ public class LightSaleDiscountCalculatorTest {
         snack.addIngredient(meat);
         snack.addIngredient(egg);
 
-        LightSaleDiscountCalculator lightSaleDiscountCalculator = new LightSaleDiscountCalculator(snack);
-
         // When
-        boolean eligible = lightSaleDiscountCalculator.isEligible();
-        double discount = lightSaleDiscountCalculator.calculate();
+        boolean eligible = lightSaleDiscountCalculator.isEligible(snack);
+        double discount = lightSaleDiscountCalculator.calculate(snack);
 
         // Then
         assertFalse(eligible);

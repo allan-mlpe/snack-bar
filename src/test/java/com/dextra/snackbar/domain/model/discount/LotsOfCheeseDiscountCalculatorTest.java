@@ -1,11 +1,22 @@
-package com.dextra.snackbar.domain.model;
+package com.dextra.snackbar.domain.model.discount;
 
+import com.dextra.snackbar.domain.model.Ingredient;
+import com.dextra.snackbar.domain.model.Snack;
+import com.dextra.snackbar.domain.model.discount.LotsOfCheeseDiscountCalculator;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class LotsOfCheeseDiscountCalculatorTest {
+
+    private LotsOfCheeseDiscountCalculator lotsOfCheeseDiscountCalculator;
+
+    @Before
+    public void init() {
+        lotsOfCheeseDiscountCalculator = new LotsOfCheeseDiscountCalculator();
+    }
 
     @Test
     public void checkEligibleSnack() {
@@ -22,12 +33,9 @@ public class LotsOfCheeseDiscountCalculatorTest {
         snack.addIngredient(egg);
         snack.addIngredient(meat);
 
-        LotsOfCheeseDiscountCalculator lotsOfCheeseDiscountCalculator =
-                new LotsOfCheeseDiscountCalculator(snack);
-
         // When
-        boolean eligible = lotsOfCheeseDiscountCalculator.isEligible();
-        double discount = lotsOfCheeseDiscountCalculator.calculate();
+        boolean eligible = lotsOfCheeseDiscountCalculator.isEligible(snack);
+        double discount = lotsOfCheeseDiscountCalculator.calculate(snack);
 
         // Then
         assertTrue(eligible);
@@ -45,12 +53,9 @@ public class LotsOfCheeseDiscountCalculatorTest {
         snack.addIngredient(cheese);
         snack.addIngredient(meat);
 
-        LotsOfCheeseDiscountCalculator lotsOfCheeseDiscountCalculator =
-                new LotsOfCheeseDiscountCalculator(snack);
-
         // When
-        boolean eligible = lotsOfCheeseDiscountCalculator.isEligible();
-        double discount = lotsOfCheeseDiscountCalculator.calculate();
+        boolean eligible = lotsOfCheeseDiscountCalculator.isEligible(snack);
+        double discount = lotsOfCheeseDiscountCalculator.calculate(snack);
 
         // Then
         assertTrue(eligible);
@@ -65,12 +70,9 @@ public class LotsOfCheeseDiscountCalculatorTest {
 
         snack.addIngredient(meat);
 
-        LotsOfCheeseDiscountCalculator lotsOfCheeseDiscountCalculator =
-                new LotsOfCheeseDiscountCalculator(snack);
-
         // When
-        boolean eligible = lotsOfCheeseDiscountCalculator.isEligible();
-        double discount = lotsOfCheeseDiscountCalculator.calculate();
+        boolean eligible = lotsOfCheeseDiscountCalculator.isEligible(snack);
+        double discount = lotsOfCheeseDiscountCalculator.calculate(snack);
 
         // Then
         assertFalse(eligible);
