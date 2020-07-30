@@ -1,0 +1,9 @@
+db:
+  image: mysql:5.7
+  container_name: snackbar_db
+  restart: always
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: snackbar
+  ports:
+    - 6033:3306
