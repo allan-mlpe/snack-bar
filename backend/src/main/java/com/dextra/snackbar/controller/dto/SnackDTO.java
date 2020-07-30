@@ -2,6 +2,7 @@ package com.dextra.snackbar.controller.dto;
 
 import com.dextra.snackbar.model.Snack;
 import com.dextra.snackbar.model.SnackItem;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +13,10 @@ public class SnackDTO extends ApiResponse {
 
     private String description;
 
-    private List<SnackItemDTO> snackItemDTOS;
+    private List<SnackItemDTO> snackItems;
+
+    @JsonProperty("menuItem")
+    private Boolean isMenuItem;
 
     public SnackDTO() {
 
@@ -34,24 +38,38 @@ public class SnackDTO extends ApiResponse {
         this.description = description;
     }
 
-    public List<SnackItemDTO> getSnackItemDTOS() {
-        return snackItemDTOS;
+    public List<SnackItemDTO> getSnackItems() {
+        return snackItems;
     }
 
-    public void setSnackItemDTOS(List<SnackItemDTO> snackItemDTOS) {
-        this.snackItemDTOS = snackItemDTOS;
+    public void setSnackItems(List<SnackItemDTO> snackItems) {
+        this.snackItems = snackItems;
+    }
+
+    public Boolean isMenuItem() {
+        return isMenuItem;
+    }
+
+    public void setIsMenuItem(Boolean custom) {
+        isMenuItem = custom;
     }
 
     public static SnackDTO convert(Snack snack) {
         SnackDTO snackDTO = new SnackDTO();
         snackDTO.setId(snack.getId());
         snackDTO.setDescription(snack.getDescription());
+        snackDTO.setIsMenuItem(snack.isMenuItem());
 
         List<SnackItemDTO> snackItemDTOS = SnackItemDTO.convertList(snack.getSnackItems());
-
-        snackDTO.setSnackItemDTOS(snackItemDTOS);
+        snackDTO.setSnackItems(snackItemDTOS);
 
         return snackDTO;
+    }
+
+    public static List<SnackDTO> convertList(List<Snack> snacks) {
+        return snacks.stream()
+                .map(snack -> SnackDTO.convert(snack))
+                .collect(Collectors.toList());
     }
 
     public Snack toModel() {
@@ -59,11 +77,11 @@ public class SnackDTO extends ApiResponse {
 
         snack.setId(this.id);
         snack.setDescription(this.description);
+        snack.setMenuItem(this.isMenuItem);
 
-        List<SnackItem> snackItems = snackItemDTOS.stream()
+        List<SnackItem> snackItems = this.snackItems.stream()
                 .map(snackItemDTO -> snackItemDTO.toModel())
                 .collect(Collectors.toList());
-
         snack.setSnackItems(snackItems);
 
         return snack;

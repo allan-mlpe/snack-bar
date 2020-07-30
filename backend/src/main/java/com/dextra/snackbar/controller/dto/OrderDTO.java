@@ -11,7 +11,7 @@ public class OrderDTO extends ApiResponse {
 
     private UUID id;
 
-    private SnackDTO snacksDTO;
+    private SnackDTO snack;
 
     private Double price;
 
@@ -29,12 +29,12 @@ public class OrderDTO extends ApiResponse {
         this.id = id;
     }
 
-    public SnackDTO getSnacksDTO() {
-        return snacksDTO;
+    public SnackDTO getSnack() {
+        return snack;
     }
 
-    public void setSnacksDTO(SnackDTO snacksDTOS) {
-        this.snacksDTO = snacksDTO;
+    public void setSnack(SnackDTO snack) {
+        this.snack = snack;
     }
 
     public Double getPrice() {
@@ -61,7 +61,7 @@ public class OrderDTO extends ApiResponse {
         orderDTO.setDiscount(order.getDiscount());
 
         SnackDTO snackDTO = SnackDTO.convert(order.getSnack());
-        orderDTO.setSnacksDTO(snackDTO);
+        orderDTO.setSnack(snackDTO);
 
         return orderDTO;
     }
@@ -79,7 +79,7 @@ public class OrderDTO extends ApiResponse {
         order.setPrice(this.price);
         order.setDiscount(this.discount);
 
-        Snack snack = snacksDTO.toModel();
+        Snack snack = this.snack.toModel();
         order.setSnack(snack);
 
         return order;

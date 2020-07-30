@@ -9,7 +9,7 @@ public class SnackItemDTO extends ApiResponse {
 
     private Long id;
 
-    private IngredientDTO ingredientDTO;
+    private IngredientDTO ingredient;
 
     private Integer quantity;
 
@@ -25,12 +25,12 @@ public class SnackItemDTO extends ApiResponse {
         this.id = id;
     }
 
-    public IngredientDTO getIngredientDTO() {
-        return ingredientDTO;
+    public IngredientDTO getIngredient() {
+        return ingredient;
     }
 
-    public void setIngredientDTO(IngredientDTO ingredientDTO) {
-        this.ingredientDTO = ingredientDTO;
+    public void setIngredient(IngredientDTO ingredient) {
+        this.ingredient = ingredient;
     }
 
     public Integer getQuantity() {
@@ -45,7 +45,8 @@ public class SnackItemDTO extends ApiResponse {
         SnackItemDTO snackItemDTO = new SnackItemDTO();
         IngredientDTO ingredientDTO = IngredientDTO.convert(snackItem.getIngredient());
 
-        snackItemDTO.setIngredientDTO(ingredientDTO);
+        snackItemDTO.setId(snackItem.getId());
+        snackItemDTO.setIngredient(ingredientDTO);
         snackItemDTO.setQuantity(snackItem.getQuantity());
 
         return snackItemDTO;
@@ -61,7 +62,7 @@ public class SnackItemDTO extends ApiResponse {
         SnackItem snackItem = new SnackItem();
 
         snackItem.setId(id);
-        snackItem.setIngredient(ingredientDTO.toModel());
+        snackItem.setIngredient(ingredient.toModel());
         snackItem.setQuantity(quantity);
 
         return snackItem;

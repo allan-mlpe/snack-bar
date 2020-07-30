@@ -3,8 +3,8 @@ package com.dextra.snackbar.service;
 import com.dextra.snackbar.model.Order;
 import com.dextra.snackbar.model.Snack;
 import com.dextra.snackbar.model.discount.DiscountCalculatorManager;
-import com.dextra.snackbar.repository.IngredientRepository;
 import com.dextra.snackbar.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,26 +13,24 @@ import java.util.List;
 public class OrderService {
 
     private OrderRepository orderRepository;
-    private IngredientRepository ingredientRepository;
 
+    @Autowired
     private DiscountCalculatorManager discountCalculatorManager;
 
-    public OrderService(OrderRepository orderRepository, IngredientRepository ingredientRepository) {
+    public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
-        this.ingredientRepository = ingredientRepository;
+    }
+
+    private Order buildOrderFromSnack(Snack snack) {
+        Order order = Order.createInstance(snack);
+        Double discount = discountCalculatorManager.getDiscount(snack);
+        order.setDiscount(discount);
+
+        return order;
     }
 
     public Order save(Snack snack) {
-        Order order = new Order();
-        order.setSnack(snack);
-
-        Double price = 0d;
-        price += snack.sumFullPrice();
-
-        Double discount = discountCalculatorManager.getDiscount(snack);
-
-        order.setPrice(price);
-        order.setDiscount(discount);
+        Order order = buildOrderFromSnack(snack);
 
         return this.orderRepository.save(order);
     }

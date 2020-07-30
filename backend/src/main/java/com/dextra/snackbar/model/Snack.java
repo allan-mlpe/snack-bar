@@ -19,7 +19,7 @@ public class Snack {
     @JoinColumn(name = "snack_id", nullable = false)
     private List<SnackItem> snackItems;
 
-    private Boolean custom = true;
+    private Boolean isMenuItem = false;
 
     public Snack() {
         this.snackItems = new ArrayList<>();
@@ -56,12 +56,12 @@ public class Snack {
         this.snackItems = snackItems;
     }
 
-    public Boolean getCustom() {
-        return custom;
+    public Boolean isMenuItem() {
+        return isMenuItem;
     }
 
-    public void setCustom(Boolean custom) {
-        this.custom = custom;
+    public void setMenuItem(Boolean isMenuItem) {
+        this.isMenuItem = isMenuItem;
     }
 
     public Map<String, SnackItem> buildSnackItemMap() {

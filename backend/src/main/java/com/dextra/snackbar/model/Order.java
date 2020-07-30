@@ -58,4 +58,14 @@ public class Order {
     public void setDiscount(Double discount) {
         this.discount = discount;
     }
+
+    public static Order createInstance(Snack snack) {
+        Order order = new Order();
+
+        snack.setMenuItem(false);
+        order.setSnack(snack);
+        order.setPrice(snack.sumFullPrice());
+
+        return order;
+    }
 }
