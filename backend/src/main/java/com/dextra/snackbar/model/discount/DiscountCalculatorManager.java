@@ -1,9 +1,9 @@
-package com.dextra.snackbar.domain.model.discount;
+package com.dextra.snackbar.model.discount;
 
-import com.dextra.snackbar.domain.model.Snack;
+import com.dextra.snackbar.model.Snack;
+import com.dextra.snackbar.model.SnackItem;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class DiscountCalculatorManager {
 
@@ -18,6 +18,8 @@ public class DiscountCalculatorManager {
     }
 
     public double getDiscount(Snack snack) {
-        return discounts.stream().mapToDouble(dis -> dis.calculate(snack)).sum();
+
+        return discounts.stream()
+                .mapToDouble(dis -> dis.calculate(snack)).sum();
     }
 }
