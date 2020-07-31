@@ -10,7 +10,6 @@ services:
     ports:
       - 6633:3306
     volumes:
-      - "./docker-config/db_scripts:/docker-entrypoint-initdb.d"
       - "mysql_data:/var/lib/mysql"
     logging:
       driver: "json-file"
