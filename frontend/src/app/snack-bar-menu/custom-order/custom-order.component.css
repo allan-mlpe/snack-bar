@@ -1,0 +1,7 @@
+span.item-control:hover {
+    cursor: pointer;
+}
+
+div.order-section {
+    margin-top: 50px;
+}

@@ -1,0 +1,13 @@
+<div *ngIf="order" class="alert alert-success" role="alert">
+    <h2>Pedido finalizado com sucesso!</h2>
+    
+    <h5>Resumo</h5>
+    <p>{{ printIngredients() }}</p>
+
+    <h5>Total</h5>
+    <p>R$ {{ order.price - order.discount | number:'1.2-2' }}</p>
+
+    <div *ngIf="order.discount && order.discount > 0">
+        Você teve um desconto de <strong>R$ {{ order.discount | number:'1.2-2' }}</strong>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div *ngIf="!finishedOrder; then prepareOrder else orderDetail"></div>
+
+<ng-template #prepareOrder>
+    <div *ngIf="loading" class="d-flex justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && error" class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+
+    <div *ngIf="!loading && ingredients.length > 0" class="container">
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+        <ngb-panel *ngFor="let ingredient of ingredients">
+            <ng-template ngbPanelHeader let-opened="opened">
+                <div class="d-flex align-items-center justify-content-between">
+                    <button ngbPanelToggle class="btn btn-link m-0">{{ ingredient.name }}</button>
+                    <div class="p-0">
+                        <button class="btn" (click)="removeIngredient(ingredient)">-</button> 
+                        {{ ingredientMap.get(ingredient.name) ? 
+                            ingredientMap.get(ingredient.name).quantity : 0 }} 
+                        <button class="btn" (click)="addIngredient(ingredient)">+</button>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template ngbPanelContent>
+            <p>R$ {{ ingredient.price | number:'1.2-2' }}</p>
+            </ng-template>
+        </ngb-panel>
+        </ngb-accordion>
+        
+        <div *ngIf="ingredientMap.size > 0" class="order-section d-flex align-items-center justify-content-between">
+            <h3>Total: R$ {{ partialPrice | number:'1.2-2' }}</h3>
+            <button class="btn btn-primary" (click)="submitOrder()">Finalizar Pedido</button>
+        </div>
+        
+    </div>
+
+    <div *ngIf="!loading && !error && ingredients.length == 0" class="alert alert-info" role="alert">
+        Ops! Nenhum dos nossos ingredientes está disponível.
+    </div>
+</ng-template>
+
+<ng-template #orderDetail>
+    <app-order-detail [order]="finishedOrder"></app-order-detail>
+</ng-template>

@@ -1,0 +1,61 @@
+<div *ngIf="!finishedOrder; then prepareOrder else orderDetail"></div>
+
+<ng-template #prepareOrder>
+  <div *ngIf="loading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  
+  <div *ngIf="!loading && error" class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!loading && snacks.length > 0" class="container">
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-panel *ngFor="let snack of snacks">
+          <ng-template ngbPanelHeader let-opened="opened">
+            <div class="d-flex align-items-center justify-content-between">
+                <button ngbPanelToggle class="btn btn-link m-0">{{ snack.description }}</button>
+                <div class="p-0">
+                    <button 
+                      *ngIf="!isChoosenSnack(snack) && !choosenSnack" 
+                      class="btn" 
+                      (click)="chooseSnack(snack)"
+                    >
+                      Escolher
+                    </button> 
+                    
+                    <button 
+                      *ngIf="isChoosenSnack(snack)"   
+                      class="btn btn-primary"
+                      (click)="unmarkSnack()"
+                    >
+                      Desmarcar
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+  
+        <ng-template ngbPanelContent>
+          <p>{{ printIngredients(snack) }}</p>
+          <p>R$ {{ prices.get(snack.description) | number:'1.2-2' }}</p>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  
+    <div *ngIf="choosenSnack" class="order-section d-flex align-items-center justify-content-between">
+        <h3>Total: R$ {{ prices.get(choosenSnack.description) | number:'1.2-2' }}</h3>
+        <button class="btn btn-primary" (click)="submitOrder()">Finalizar Pedido</button>
+    </div>
+  </div>
+  
+  <div *ngIf="!loading && !error && snacks.length == 0" class="alert alert-info" role="alert">
+    Ops! Nenhum item do nosso cardápio está disponível.
+  </div>
+</ng-template>
+
+<ng-template #orderDetail>
+  <app-order-detail [order]="finishedOrder"></app-order-detail>
+</ng-template>
+

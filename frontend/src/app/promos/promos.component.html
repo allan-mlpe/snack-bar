@@ -1,0 +1,13 @@
+<div>
+    <h2>Descontos exclusivos para você montar o seu lanche</h2>
+</div>
+
+<div *ngFor="let promo of promos" class="media">
+    <img src="{{promo.img}}" class="mr-3" alt="...">
+    <div class="media-body">
+        <h5 class="mt-0">{{promo.title}}</h5>
+        {{ promo.description }}
+    </div>
+</div>
+
+<p>obs: Você verá seu desconto aplicado após confirmar seu pedido.</p>
