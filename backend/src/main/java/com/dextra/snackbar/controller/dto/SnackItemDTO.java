@@ -61,7 +61,6 @@ public class SnackItemDTO extends ApiResponse {
     public SnackItem toModel() {
         SnackItem snackItem = new SnackItem();
 
-        snackItem.setId(id);
         snackItem.setIngredient(ingredient.toModel());
         snackItem.setQuantity(quantity);
 

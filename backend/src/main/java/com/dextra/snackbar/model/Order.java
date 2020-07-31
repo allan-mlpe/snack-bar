@@ -62,6 +62,7 @@ public class Order {
     public static Order createInstance(Snack snack) {
         Order order = new Order();
 
+        snack.setId(null);
         snack.setMenuItem(false);
         order.setSnack(snack);
         order.setPrice(snack.sumFullPrice());
