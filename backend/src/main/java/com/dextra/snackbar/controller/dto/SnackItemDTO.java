@@ -3,11 +3,12 @@ package com.dextra.snackbar.controller.dto;
 import com.dextra.snackbar.model.SnackItem;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class SnackItemDTO extends ApiResponse {
 
-    private Long id;
+    private UUID id;
 
     private IngredientDTO ingredient;
 
@@ -17,11 +18,11 @@ public class SnackItemDTO extends ApiResponse {
 
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

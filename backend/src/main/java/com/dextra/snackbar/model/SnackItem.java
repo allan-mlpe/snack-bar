@@ -1,13 +1,17 @@
 package com.dextra.snackbar.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 public class SnackItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    private UUID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "ingredient_id", nullable = false)
@@ -23,11 +27,11 @@ public class SnackItem {
         this.quantity = quantity;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

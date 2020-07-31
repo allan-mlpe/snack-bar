@@ -1,9 +1,41 @@
-db:
-  image: mysql:5.7
-  container_name: snackbar_db
-  restart: always
-  environment:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: snackbar
-  ports:
-    - 6033:3306
+version: '3.7'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: snackbar_db
+    restart: always
+    env_file:
+      - docker-config/snack_default.env
+    ports:
+      - 6633:3306
+#    volumes:
+#      - "./docker-config/db_scripts:/docker-entrypoint-initdb.d"
+#      - "mysql_data:/var/lib/mysql"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  api:
+    build:
+      context: backend/
+    image: snackbar-api:1.0
+    depends_on:
+      - db
+    env_file:
+      - docker-config/snack_default.env
+    ports:
+      - 8000:8080
+    volumes:
+      - "m2_cache:/root/.m2"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  mysql_data:
+  m2_cache:
