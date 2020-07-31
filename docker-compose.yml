@@ -19,9 +19,8 @@ services:
         max-file: "5"
 
   api:
-    build:
-      context: backend/
-    image: snackbar-api:1.0
+    image: allanmlpe/snackbar-api:latest
+    restart: always
     depends_on:
       - db
     env_file:
@@ -36,15 +35,14 @@ services:
         max-size: "10m"
         max-file: "5"
 
-  front:
-    build:
-      context: frontend/
-      target: deploy
-    image: snackbar-front:1.0
+  web:
+    image: allanmlpe/snackbar-server:latest
     ports:
-      - 8800:80
+      - 80:80
     volumes:
       - "./docker-config/nginx_proxy.conf:/etc/nginx/conf.d/default.conf"
+    depends_on: 
+      - api
 
 volumes:
   mysql_data:

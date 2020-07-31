@@ -12,7 +12,6 @@
   </div>
   
   <div *ngIf="!loading && snacks.length > 0" class="container">
-    <p>Na montagem de itens promocionais, seu desconto será aplicado após finalizar o pedido!</p>
     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
       <ngb-panel *ngFor="let snack of snacks">
           <ng-template ngbPanelHeader let-opened="opened">
