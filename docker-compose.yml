@@ -9,9 +9,9 @@ services:
       - docker-config/snack_default.env
     ports:
       - 6633:3306
-#    volumes:
-#      - "./docker-config/db_scripts:/docker-entrypoint-initdb.d"
-#      - "mysql_data:/var/lib/mysql"
+    volumes:
+      - "./docker-config/db_scripts:/docker-entrypoint-initdb.d"
+      - "mysql_data:/var/lib/mysql"
     logging:
       driver: "json-file"
       options:
@@ -35,6 +35,16 @@ services:
       options:
         max-size: "10m"
         max-file: "5"
+
+  front:
+    build:
+      context: frontend/
+      target: deploy
+    image: snackbar-front:1.0
+    ports:
+      - 8800:80
+    volumes:
+      - "./docker-config/nginx_proxy.conf:/etc/nginx/conf.d/default.conf"
 
 volumes:
   mysql_data:

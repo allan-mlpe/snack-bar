@@ -1,5 +1,5 @@
 # Base image
-FROM node:10.19-slim AS base
+FROM node:10.19-slim AS builder
 
 WORKDIR /usr/app/snackbar
 
@@ -14,4 +14,4 @@ RUN npm run build
 # Deploy to nginx
 FROM nginx:1.17-alpine AS deploy
 
-COPY --from=build /usr/src/app/snackbar/dist/snackbar /usr/share/nginx/html
+COPY --from=builder /usr/app/snackbar/dist/snackbar /usr/share/nginx/html
