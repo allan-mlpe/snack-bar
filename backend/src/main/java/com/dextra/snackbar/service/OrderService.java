@@ -23,7 +23,7 @@ public class OrderService {
 
     private Order buildOrderFromSnack(Snack snack) {
         Order order = Order.createInstance(snack);
-        Double discount = discountCalculatorManager.getDiscount(snack);
+        Double discount = discountCalculatorManager.calculateDiscount(snack);
         order.setDiscount(discount);
 
         return order;

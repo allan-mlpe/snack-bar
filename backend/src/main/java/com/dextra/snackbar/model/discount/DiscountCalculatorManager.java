@@ -1,7 +1,6 @@
 package com.dextra.snackbar.model.discount;
 
 import com.dextra.snackbar.model.Snack;
-import com.dextra.snackbar.model.SnackItem;
 
 import java.util.*;
 
@@ -17,8 +16,7 @@ public class DiscountCalculatorManager {
         discounts.add(new LotsOfMeatSaleDiscountCalculator());
     }
 
-    public double getDiscount(Snack snack) {
-
+    public double calculateDiscount(Snack snack) {
         return discounts.stream()
                 .mapToDouble(dis -> dis.calculate(snack)).sum();
     }
