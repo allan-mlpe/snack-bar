@@ -9,6 +9,7 @@
 - [Docker Compose](https://docs.docker.com/compose/install/).
 
 #### 2. Iniciar os containers
+Na raiz do projeto, execute o seguinte comando:
 
     docker-compose up
 
@@ -48,7 +49,7 @@ Por padrão, a aplicação está configurada para rodar na porta 80, então voc�
 
 - Como citado anteriormente, para fins de simplificação do problema, o cliente só pode pedir um lanche por vez.
 
-- As promoções existentes foram criadas diretamente como um componente, sem qualquer consulta ao backend para dispensar a criação de novas entidades, serviços, repositórios, etc. Mais uma decisão com fins de tornar o problema mais simples.
+- As promoções existentes foram criadas diretamente como um componente, sem qualquer consulta ao backend para dispensar a criação de novas entidades, serviços, repositórios, etc.
 
 ### CI/CD
 

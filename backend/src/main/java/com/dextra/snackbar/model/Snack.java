@@ -64,6 +64,15 @@ public class Snack {
         this.isMenuItem = isMenuItem;
     }
 
+    /**
+     * Constroi um mapa usando como chave o nome do ingrediente.
+     *
+     * O objetivo é oferecer uma estrutura de dados mais eficiente
+     * quando da busca por algum ingrediente específico.
+     *
+     * @return mapa relacionando o nome do ingrediente e o respectivo
+     *          SnackItem associado.
+     */
     public Map<String, SnackItem> buildSnackItemMap() {
         Map<String, SnackItem> snackItemMap = new HashMap<>();
 
